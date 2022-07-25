@@ -25,7 +25,7 @@ router.get("/get-dog", async (req, res) => {
     const dogJSON = await dogFetch.json();
     console.log("dogJSON");
     console.log(dogJSON);
-    const dogURL = dogJSON.message;
+    const dogURL = await dogJSON.message;
     console.log("dogURL");
     console.log(dogURL);
     res.json({ serverMessage: dogURL }).status(200);
