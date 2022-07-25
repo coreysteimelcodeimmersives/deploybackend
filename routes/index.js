@@ -28,9 +28,9 @@ router.get("/get-dog", async (req, res) => {
     const dogURL = await dogJSON.message;
     console.log("dogURL");
     console.log(dogURL);
-    res.json({ serverMessage: dogURL }).status(200);
+    res.json({ serverMessage: dogURL, myMessage: "cool" }).status(200);
   } catch (error) {
-    res.json({ serverMessage: error }).status(400);
+    res.json({ serverMessage: error, myMessage: "what" }).status(400);
   }
 });
 
