@@ -22,7 +22,7 @@ router.get("/get-dog", async (req, res) => {
     const dogFetch = await fetch("https://dog.ceo/api/breeds/image/random");
     console.log("dogfetch");
     console.log(dogFetch);
-    const dogJSON = await dogFetch.parse();
+    const dogJSON = await dogFetch.json();
     console.log("dogJSON");
     console.log(dogJSON);
     const dogURL = await dogJSON.message;
