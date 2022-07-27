@@ -1,8 +1,11 @@
+const fetch = require("node-fetch");
 var express = require("express");
 const { json } = require("express/lib/response");
 var router = express.Router();
+
 const { uuid } = require("uuidv4");
 const { serverCheckUserIsValid } = require("../utils/validation");
+
 const userList = [
   {
     id: 1,
@@ -63,20 +66,28 @@ router.post("/post-message", (req, res) => {
   }
 });
 
+router.get("/get-users", async (req, res) => {
+  try {
+    res.json({ serverMessage: userList }).status(200);
+  } catch (error) {
+    res.json({ serverMessage: error }).status(400);
+  }
+});
+
 router.get("/get-dog", async (req, res) => {
   try {
-    const dogFetch = await fetch("https://dog.ceo/api/breeds/image/random");
-    console.log("dogfetch");
-    console.log(dogFetch);
-    const dogJSON = await dogFetch.json();
-    console.log("dogJSON");
-    console.log(dogJSON);
-    const dogURL = await dogJSON.message;
-    console.log("dogURL");
-    console.log(dogURL);
-    res.json({ serverMessage: dogURL, myMessage: "cool" }).status(200);
+    const response = await fetch("https://random.dog/woof.json");
+    console.log("response: " + response);
+
+    const dogJSON = await response.json();
+    console.log("dogJSON: " + dogJSON);
+
+    const dogURL = await dogJSON.url;
+    console.log("dogURL: " + dogURL);
+
+    res.status(200).json({ serverMessage: dogURL });
   } catch (error) {
-    res.json({ serverMessage: error, myMessage: "what" }).status(400);
+    res.status(400).json({ serverMessage: "Error fetching doggo " + error });
   }
 });
 
