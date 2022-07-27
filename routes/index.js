@@ -34,9 +34,9 @@ router.post("/create-user", (req, res) => {
       return;
     }
 
-    const firstName = userData;
-    const lastName = userData;
-    const email = userData;
+    const firstName = userData.firstName;
+    const lastName = userData.lastName;
+    const email = userData.email;
     const id = uuid();
     const newUser = {
       id,
