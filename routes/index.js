@@ -25,8 +25,6 @@ router.post("/create-user", (req, res) => {
     const userData = req.body.userData;
     const userIsValid = serverCheckUserIsValid(userData);
     if (!userIsValid) {
-      console.log(req.body);
-      console.log("if block");
       res.status(400).json({
         serverMessage:
           "To create a new user you must include First Name, Last Name, and Email.",
@@ -45,7 +43,6 @@ router.post("/create-user", (req, res) => {
       email,
     };
     userList.push(newUser);
-    console.log(userList);
     res
       .json({ serverMessage: "New user successfully created.", success: true })
       .status(200);
@@ -77,14 +74,8 @@ router.get("/get-users", async (req, res) => {
 router.get("/get-dog", async (req, res) => {
   try {
     const response = await fetch("https://random.dog/woof.json");
-    console.log("response: " + response);
-
     const dogJSON = await response.json();
-    console.log("dogJSON: " + dogJSON);
-
     const dogURL = await dogJSON.url;
-    console.log("dogURL: " + dogURL);
-
     res.status(200).json({ serverMessage: dogURL });
   } catch (error) {
     res.status(400).json({ serverMessage: "Error fetching doggo " + error });
